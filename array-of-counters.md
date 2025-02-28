@@ -14,18 +14,18 @@ This solution is simple and works for small test cases but fails for larger data
 
 ```
 function solution(N, A) {
-    const counters = Array.from({length: N}, el => el = 0)
-    for(let i = 0; i < A.length; i++ ) {
+    const counters = Array.from({length: N}).fill(0)
+
+    for(let i in A) {
         if(A[i] > N) {
             const max = Math.max(...counters)
-            for(let j in counters){
-              counters[j]= max
-            }
+            counters.fill(max)
         } else {
-            counters[A[i]-1]++
+           counters[A[i]-1]++ 
         }
     }
     return counters
 }
+
 ```
 
