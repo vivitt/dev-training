@@ -33,3 +33,27 @@ function solution(S, P, Q) {
 }
 
 ```
+
+Other posible solution with a O(N * M) time complexity
+```
+function solution(S, P, Q) {
+
+    const factors = {
+        A: 1,
+        C: 2,
+        G: 3,
+        T: 4
+    }
+
+    
+    const results = []
+
+    for(let i = 0; i < P.length; i++) {
+       const count = [0,0,0,0]
+       S.slice(P[i], Q[i]+1).split('').map((el) => count[factors[el]-1]++)
+       results.push(count.findIndex((el) => el > 0)+1)
+    }
+    
+    return results
+}
+```
