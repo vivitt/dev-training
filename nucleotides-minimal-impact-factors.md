@@ -2,12 +2,11 @@ In this exercise, the goal is to create a function that answers multiple queries
 
 Each query specifies a particular segment of a given DNA sequence, and the function should return the minimal impact factor of the nucleotides within that segment.
 
+This solution works but has a O(N * M) time complexity, so it doesnt pass test when the number of queries is big.
 ```
-// you can write to stdout for debugging purposes, e.g.
-// console.log('this is a debug message');
+
 
 function solution(S, P, Q) {
-    // Implement your solution here
     const factors = {
         A: 1,
         C: 2,
@@ -34,10 +33,9 @@ function solution(S, P, Q) {
 
 ```
 
-Other posible solution with a O(N * M) time complexity
-```
+🚧 WIP To achieve a time complexity of O(n+m) 
+````
 function solution(S, P, Q) {
-
     const factors = {
         A: 1,
         C: 2,
@@ -45,15 +43,26 @@ function solution(S, P, Q) {
         T: 4
     }
 
-    
+    const replaced = S.split('').map((el=> factors[el]))
+    const sum = Array.from({length: replaced.length + 1 }, el => el = 0)
+    const q = P.length
     const results = []
 
-    for(let i = 0; i < P.length; i++) {
-       const count = [0,0,0,0]
-       S.slice(P[i], Q[i]+1).split('').map((el) => count[factors[el]-1]++)
-       results.push(count.findIndex((el) => el > 0)+1)
+    for(let i = 1; i < replaced.length; i++) {
+        sum[i] = sum[i - 1] + replaced[i - 1]
+    }
+
+    for(let i = 0; i < q; i++) {
+        const elements = Q[i] - P[i] + 1
+        const diff = sum[Q[i]] - sum[P[i]]
+        if(diff === 0) {
+            results.push(replaced[Q[i]])
+        } else {
+            
+        }
     }
     
+
     return results
 }
 ```
