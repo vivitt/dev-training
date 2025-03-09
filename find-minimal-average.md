@@ -3,11 +3,7 @@ The average sum is calculated as the sum of the elements divided by the number o
 
 
 ```
-// you can write to stdout for debugging purposes, e.g.
-// console.log('this is a debug message');
-
 function solution(A) {
-    // Implement your solution here
     const l = A.length
     const sum = Array.from({length: l + 1 }, el => el = 0)
 
