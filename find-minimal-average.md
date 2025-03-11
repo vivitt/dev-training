@@ -12,25 +12,26 @@ Then iterate trought the array elements and calculate the min average for each p
 ```
 function solution(A) {
     const l = A.length
-    const sum = Array.from({length: l + 1 }, el => el = 0)
+    const prefixSum = Array.from({length: l+1}, el => el = 0)
 
-    for(let i = 1; i < l +1 ; i++) {
-        sum[i] = sum[i - 1] + A[i - 1]
+    for(let i = 1; i < l+1; i++) {
+        prefixSum[i] = prefixSum[i-1] + A[i-1]
     }
-   
-    let lastMin = sum[sum.length-1]/l
-    let lastIndex = 0
-    for(let i = 1; i < l-1; i++) {
+
+    let minAverage = prefixSum[l] / l
+    let minIndex = 0
+
+    for(let i = 1; i < l+1; i++) {
         let j = l
-        while(j > i) {
-            if(sum[j]-sum[i]/(j-1) < lastMin) {
-                lastMin = sum[j]-sum[i]/(j-1)
-                lastIndex = i
+        while(j>i) {
+            if((prefixSum[j] - prefixSum[i-1])/ (l-i+1) < minAverage) {
+                minAverage = (prefixSum[j] - prefixSum[i-1])/ (l-i+1)
+                minIndex = i-1
             }
-            j--
+           j--
         }
     }
-
-    return lastIndex
+    return minIndex
 }
+
 ```
