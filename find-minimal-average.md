@@ -20,11 +20,11 @@ function solution(A) {
    
     let lastMin = sum[sum.length-1]/l
     let lastIndex = 0
-    for(let i = 0; i < l-1; i++) {
-        let j = l 
+    for(let i = 1; i < l-1; i++) {
+        let j = l
         while(j > i) {
-            if((sum[j] - sum[i])/(l-i) < lastMin) {
-                lastMin = (sum[j] - sum[i])/(l-i)
+            if(sum[j]-sum[i]/(j-1) < lastMin) {
+                lastMin = sum[j]-sum[i]/(j-1)
                 lastIndex = i
             }
             j--
