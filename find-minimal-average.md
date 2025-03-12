@@ -1,13 +1,12 @@
-The goal of this exercise is to write a function that receives an array of integers and returns the first index of the slice with the minimal average sum.
-The average sum is calculated as the sum of the elements divided by the number of elements in a possible slice.
+The goal of this exercise is to write a function that receives an array of integers and returns the first index of the slice with the minimal average sum. The average sum is calculated by dividing the sum of the elements by the number of elements in the slice.
 
-First, store the given array's length in a variable.
+First, store the length of the given array in a variable.
 
-Create a new array to store the prefix sums for all the elements in the first array.
+Next, create a new array to store the prefix sums of all the elements in the original array.
 
-Then iterate trought the array elements and calculate the min average for each posible slice.
+Then, create two variables: one to store the current minimum average of a slice, and another to store the index of the starting slice. Initialize these variables with the average of the sum of all elements and the index 0.
 
-
+Now, iterate through the array and calculate the minimum average for each possible slice. If the average is smaller than the last minimum average, update the value and the index. Return the last stored index value.
 
 ```
 function solution(A) {
@@ -23,13 +22,15 @@ function solution(A) {
 
     for(let i = 0; i < l; i++) {
         let endSlice = l
+        let elements = l - i
         while(endSlice > i) {
-            const avr = (prefixSum[endSlice] - prefixSum[i]) / (l-i)
+            const avr = (prefixSum[endSlice] - prefixSum[i]) / element
             if (avr < minAvr) {
             minAvr = avr
             minIndex = i   
         }
          endSlice--
+        elements--
         }   
     }
     return minIndex
