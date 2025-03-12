@@ -14,24 +14,23 @@ function solution(A) {
     const l = A.length
     const prefixSum = Array.from({length: l+1}, el => el = 0)
 
-    for(let i = 1; i < l+1; i++) {
+    for (let i = 1; i<l+1; i++) {
         prefixSum[i] = prefixSum[i-1] + A[i-1]
     }
 
-    let minAverage = prefixSum[l] / l
+    let minAvr = prefixSum[l] / l
     let minIndex = 0
 
-    for(let i = 1; i < l+1; i++) {
-        let j = l
-        while(j>i) {
-            if((prefixSum[j] - prefixSum[i-1])/ (l-i+1) < minAverage) {
-                minAverage = (prefixSum[j] - prefixSum[i-1])/ (l-i+1)
-                minIndex = i-1
-            }
-           j--
+    for(let i = 0; i < prefixSum.length; i++) {
+        const avr = (prefixSum[i+1] - prefixSum[i]) / (l-i)
+        if (avr < minAvr) {
+            minAvr = avr
+            minIndex = i
+            
         }
     }
     return minIndex
 }
+
 
 ```
