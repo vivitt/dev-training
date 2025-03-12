@@ -21,16 +21,17 @@ function solution(A) {
     let minAvr = prefixSum[l] / l
     let minIndex = 0
 
-    for(let i = 0; i < prefixSum.length; i++) {
-        const avr = (prefixSum[i+1] - prefixSum[i]) / (l-i)
-        if (avr < minAvr) {
+    for(let i = 0; i < l; i++) {
+        let endSlice = l
+        while(endSlice > i) {
+            const avr = (prefixSum[endSlice] - prefixSum[i]) / (l-i)
+            if (avr < minAvr) {
             minAvr = avr
-            minIndex = i
-            
+            minIndex = i   
         }
+         endSlice--
+        }   
     }
     return minIndex
 }
-
-
 ```
