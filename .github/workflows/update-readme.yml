@@ -19,16 +19,16 @@ jobs:
           index=0
           find . -name "*.md" ! -path "./README.md" ! -path "./md_links.md" -printf '%T@ %p\n' | sort -n | while read -r timestamp file; do
             file_path="${file#./}"
-            name=$(basename "$file")
-            header=$(grep -m 1 '^# .+' "$file")
+            header=$(grep -m 1 '^# ' "$file")
             if [[ -n "$header" ]]; then
-              name="$header"
+              name=$(echo "$header" | sed 's/^#*\s*//')  # Remove the `#` symbol and any spaces
+            else
+              name=$(basename "$file")  # Use the file name if no header
             fi
-  
-            index=$((index + 1))  # Increment the index
+            index=$((index + 1))
             echo "${index}. [${name}](${file_path})" >> md_links.md
           done
-
+          
       - name: Update README
         run: |
           awk '/<!-- MD LINKS START -->/{print; system("cat md_links.md"); next} /<!-- MD LINKS END -->/{found=1} !found' README.md > temp.md
