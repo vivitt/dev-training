@@ -4,6 +4,15 @@ Created this repo to store and track my progress in solving programming and algo
 
 
 <!-- MD LINKS START -->
+1. [array-of-counters.md](array-of-counters.md)
+2. [find-array-permutations.md](find-array-permutations.md)
+3. [find-first-complete-set.md](find-first-complete-set.md)
+4. [find-minimal-average.md](find-minimal-average.md)
+5. [find-missing-array-element.md](find-missing-array-element.md)
+6. [find-smallest-integer.md](find-smallest-integer.md)
+7. [minimal-difference.md](minimal-difference.md)
+8. [nucleotides-minimal-impact-factors.md](nucleotides-minimal-impact-factors.md)
+9. [number-of-divisible-integers.md](number-of-divisible-integers.md)
 1. [In this exercise, you start with N counters, all set to 0.](array-of-counters.md)
 2. [The goal of this task is to create a function to determine whether an array of N integers is a permutation.](find-array-permutations.md)
 3. [The goal of this problem is to find the array index that represents the first time all integers from 1 to X have appeared in the array.](find-first-complete-set.md)
