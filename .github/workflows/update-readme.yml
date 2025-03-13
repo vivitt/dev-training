@@ -1,0 +1,42 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Update README with new links
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * 1'
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Generate MD Links
+        run: |
+          echo "# Markdown Files" > md_links.md
+          echo "" >> md_links.md
+
+          existing_links=$(awk '/<!-- MD LINKS START -->/{flag=1; next} /<!-- MD LINKS END -->/{flag=0} flag' README.md | grep -o '\[.*\](.*)' | sed 's/.*(\(.*\))/\1/')
+
+          find . -name "*.md" ! -path "./README.md" -printf '%T@ %p\n' | sort -n | while read -r timestamp file; do file_path="${file#./}"
+
+            if ! grep -q "$file_path" <<< "$existing_links"; then name=$(basename "$file")
+              echo "- [${name}](${file_path})" >> md_links.md
+            fi
+          done
+
+      - name: Update README
+        run: |
+          awk '/<!-- MD LINKS START -->/{print; system("cat md_links.md"); next} /<!-- MD LINKS END -->/{found=1} !found' README.md > temp.md
+          mv temp.md README.md
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          git diff --quiet || (git add README.md && git commit -m "Update README with MD links" && git push)
+
+
