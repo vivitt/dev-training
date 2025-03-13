@@ -1,4 +1,4 @@
-# This is a basic workflow to help you get started with Actions
+# This is a basic workflow to update the README adding links to each .md file
 
 name: Update README with new links
 on:
@@ -16,19 +16,21 @@ jobs:
         
       - name: Generate MD Links
         run: |
-          index=0
-          find . -name "*.md" ! -path "./README.md" ! -path "./md_links.md" -printf '%T@ %p\n' | sort -n | while read -r timestamp file; do
-            file_path="${file#./}"
-            header=$(grep -m 1 '^# ' "$file")
-            if [[ -n "$header" ]]; then
-              name=$(echo "$header" | sed 's/^#*\s*//')  # Remove the `#` symbol and any spaces
-            else
-              name=$(basename "$file")  # Use the file name if no header
-            fi
-            index=$((index + 1))
-            echo "${index}. [${name}](${file_path})" >> md_links.md
-          done
+
+          find . -name "*.md" ! -path "./README.md" ! -path "./md_links.md" -printf '%T@ %p\n' | sort -n | while read -r timestamp file; do file_path="${file#./}"
+
           
+          header=$(head -n 1 "$file")
+          if [[ "$header" =~ ^#\ (.+) ]]; then
+            name="${BASH_REMATCH[1]}"
+          else
+            name=$(basename "$file")
+          fi
+          index=$((index + 1))
+          echo "${index}. [${name}](${file_path})" >> md_links.md
+            
+          done
+
       - name: Update README
         run: |
           awk '/<!-- MD LINKS START -->/{print; system("cat md_links.md"); next} /<!-- MD LINKS END -->/{found=1} !found' README.md > temp.md
@@ -39,5 +41,4 @@ jobs:
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
           git diff --quiet || (git add README.md && git commit -m "Update README with new files links" && git push)
-
 
