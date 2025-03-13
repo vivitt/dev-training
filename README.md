@@ -1,3 +1,3 @@
 # Algorithm & Coding Challenges Solutions
 
-Created this repo to store and and track my progress on solving programming and algorithm challenges from various online platforms.
+Created this repo to store and track my progress in solving programming and algorithm challenges from various online platforms.
