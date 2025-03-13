@@ -4,8 +4,6 @@ Created this repo to store and track my progress in solving programming and algo
 
 
 <!-- MD LINKS START -->
-# Markdown Files
-
 - [array-of-counters.md](array-of-counters.md)
 - [find-array-permutations.md](find-array-permutations.md)
 - [find-first-complete-set.md](find-first-complete-set.md)
