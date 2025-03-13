@@ -21,9 +21,14 @@ jobs:
 
           existing_links=$(awk '/<!-- MD LINKS START -->/{flag=1; next} /<!-- MD LINKS END -->/{flag=0} flag' README.md | grep -o '\[.*\](.*)' | sed 's/.*(\(.*\))/\1/')
 
-          find . -name "*.md" ! -path "./README.md" -printf '%T@ %p\n' | sort -n | while read -r timestamp file; do file_path="${file#./}"
+          find . -name "*.md" ! -path "./README.md" -path "./md_links.md" -printf '%T@ %p\n' | sort -n | while read -r timestamp file; do file_path="${file#./}"
 
             if ! grep -q "$file_path" <<< "$existing_links"; then name=$(basename "$file")
+              header=$(head -n 1 "$file" | sed 's/^#*\s*//')
+                if [[ -n "$header" ]]; then
+                  name="$header"
+                else
+                  name=$(basename "$file" .md) 
               echo "- [${name}](${file_path})" >> md_links.md
             fi
           done
