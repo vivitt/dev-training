@@ -16,20 +16,19 @@ jobs:
         
       - name: Generate MD Links
         run: |
-          existing_links=$(awk '/<!-- MD LINKS START -->/{flag=1; next} /<!-- MD LINKS END -->/{flag=0} flag' README.md | grep -o '\[.*\](.*)' | sed 's/.*(\(.*\))/\1/')
 
-          find . -name "*.md" ! -path "./README.md" -path "./md_links.md" -printf '%T@ %p\n' | sort -n | while read -r timestamp file; do file_path="${file#./}"
+          find . -name "*.md" ! -path "./README.md" ! -path "./md_links.md" -printf '%T@ %p\n' | sort -n | while read -r timestamp file; do file_path="${file#./}"
 
-            if ! grep -q "$file_path" <<< "$existing_links"; then name=$(basename "$file")
-              header=$(head -n 1 "$file" | sed 's/^#*\s*//')
-                if [[ -n "$header" ]]; then
-                  name="$header"
-                else
-                  name=$(basename "$file" .md) 
-                fi
-                index=$((index + 1))
-              echo "${index}. [${name}](${file_path})" >> md_links.md
+          name=$(basename "$file")
+          header=$(head -n 1 "$file" | sed 's/^#*\s*//')
+            if [[ -n "$header" ]]; then
+              name="$header"
+            else
+              name=$(basename "$file" .md) 
             fi
+          index=$((index + 1))
+          echo "${index}. [${name}](${file_path})" >> md_links.md
+            
           done
 
       - name: Update README
@@ -41,6 +40,6 @@ jobs:
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
-          git diff --quiet || (git add README.md && git commit -m "Update README with MD links" && git push)
+          git diff --quiet || (git add README.md && git commit -m "Update README with new files links" && git push)
 
 
