@@ -23,13 +23,14 @@ function solution(A) {
     for(let i = 0; i < l; i++) {
         let endSlice = l
         let elements = l - i
-        while(endSlice > i) {
-            const avr = (prefixSum[endSlice] - prefixSum[i]) / element
+        while(endSlice > i && elements > 1) {
+            const avr = (prefixSum[endSlice] - prefixSum[i]) / elements
+            
             if (avr < minAvr) {
             minAvr = avr
             minIndex = i   
         }
-         endSlice--
+        endSlice--
         elements--
         }   
     }
