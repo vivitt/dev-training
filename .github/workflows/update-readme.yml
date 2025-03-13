@@ -27,7 +27,8 @@ jobs:
                 else
                   name=$(basename "$file" .md) 
                 fi
-              echo "[${name}](${file_path})" >> md_links.md
+                index=$((index + 1))
+              echo "${index}. [${name}](${file_path})" >> md_links.md
             fi
           done
 
