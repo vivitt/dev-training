@@ -30,10 +30,11 @@ jobs:
           echo "${index}. [${name}](${file_path})" >> md_links.md
             
           done
-
+          
       - name: Update README
         run: |
           awk '/<!-- MD LINKS START -->/{print; system("cat md_links.md"); next} /<!-- MD LINKS END -->/{found=1} !found' README.md > temp.md
+          echo "<!-- MD LINKS END -->" >> temp.md
           mv temp.md README.md
 
       - name: Commit and push changes
