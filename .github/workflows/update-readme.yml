@@ -26,6 +26,7 @@ jobs:
                   name="$header"
                 else
                   name=$(basename "$file" .md) 
+                fi
               echo "[${name}](${file_path})" >> md_links.md
             fi
           done
