@@ -17,13 +17,16 @@ jobs:
       - name: Generate MD Links
         run: |
 
-          find . -name "*.md" ! -path "./README.md" ! -path "./md_links.md" -printf '%T@ %p\n' | sort -n | while read -r timestamp file; do file_path="${file#./}"
-
+          find . -name "*.md" ! -path "./README.md" ! -path "./md_links.md" -printf '%T@ %p\n' | sort -n | while read -r timestamp file; do
+          file_path="${file#./}"
+          
           name=$(basename "$file")
+          
           header=$(grep -m 1 '^# .+' "$file")
             if [[ -n "$header" ]]; then
               name="$header"
             fi
+          
           index=$((index + 1))
           echo "${index}. [${name}](${file_path})" >> md_links.md
             
