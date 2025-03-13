@@ -20,11 +20,9 @@ jobs:
           find . -name "*.md" ! -path "./README.md" ! -path "./md_links.md" -printf '%T@ %p\n' | sort -n | while read -r timestamp file; do file_path="${file#./}"
 
           name=$(basename "$file")
-          header=$(head -n 1 "$file" | sed 's/^#*\s*//')
+          header=$(grep -m 1 '^# .+' "$file")
             if [[ -n "$header" ]]; then
               name="$header"
-            else
-              name=$(basename "$file" .md) 
             fi
           index=$((index + 1))
           echo "${index}. [${name}](${file_path})" >> md_links.md
