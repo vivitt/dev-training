@@ -37,3 +37,34 @@ function solution(A) {
     return minIndex
 }
 ```
+
+The previous solution is okay, but it has a time complexity of O(N²) and fails the test cases for large numbers. An attempt at a more performant solution is the following, but it only works when the optimal slice has a length of two elements.
+
+```
+function solution(A) {
+    const l = A.length
+    const prefixSum = Array.from({length: l+1}, el => el = 0)
+
+    for (let i = 1; i<l+1; i++) {
+        prefixSum[i] = prefixSum[i-1] + A[i-1]
+    }
+
+    let minAvr = prefixSum[l] / l
+    let minIndex = 0
+
+    for(let i = 2; i < l+1; i++) {
+       if(prefixSum[i]/i < minAvr) {
+           minAvr = prefixSum[i]/i
+           minIndex = i-2
+       }
+    }
+    for(let i = 0; i< l; i++) {
+        if((prefixSum[i+2] -prefixSum[i]) / 2 < minAvr) {
+            minAvr = (prefixSum[i+2] -prefixSum[i]) / 2
+           minIndex = i
+        }
+    }
+    
+    return minIndex
+}
+```
