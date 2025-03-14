@@ -41,5 +41,5 @@ jobs:
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
-          git diff --quiet || (git add README.md && git commit -m "Update README with new files links" && git push)
+          git diff --quiet || (git add README.md && git add md_links.md && git commit -m "Update README with new files links" && git push)
 
