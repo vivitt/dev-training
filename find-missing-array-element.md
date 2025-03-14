@@ -1,3 +1,5 @@
+# Find the missing array element
+
 The goal of this exercise is to find the missing element in an array.
 
 The array contains all unsorted integers within a range except for one, which the solution should return.
