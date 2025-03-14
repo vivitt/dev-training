@@ -1,10 +1,10 @@
-# This is a basic workflow to update the README adding links to each .md file
+# A workflow to update the README adding links to each .md file
 
 name: Update README with new links
 on:
   push:
-    branches:
-      - main
+    paths:
+      - '**.md'
 
 jobs:
   update-readme:
@@ -13,22 +13,22 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Get changed files
+        run: changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | xargs)" >> $GITHUB_OUTPUT
         
-      - name: Generate MD Links
+      - name: List changed files & create links
         run: |
-
-          find . -name "*.md" ! -path "./README.md" ! -path "./md_links.md" -printf '%T@ %p\n' | sort -n | while read -r timestamp file; do file_path="${file#./}"
-
-          
-          header=$(head -n 1 "$file")
-          if [[ "$header" =~ ^#\ (.+) ]]; then
-            name="${BASH_REMATCH[1]}"
-          else
-            name=$(basename "$file")
-          fi
           index=$((index + 1))
-          echo "${index}. [${name}](${file_path})" >> md_links.md
-            
+          for file in ${{ steps.changed-files.outputs.changed_files }}; do
+            header=$(head -n 1 "$file")
+              if [[ "$header" =~ ^#\ (.+) ]]; then
+                name="${BASH_REMATCH[1]}"
+              else
+                name=$(basename "$file")
+              fi
+            echo "${index}. [${name}](${file_path})" >> md_links.md
           done
           
       - name: Update README
