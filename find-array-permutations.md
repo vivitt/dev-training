@@ -1,3 +1,5 @@
+# Check if Array is a Permutation
+
 The goal of this task is to create a function to determine whether an array of N integers is a permutation.
 
 A permutation is a sequence that contains each element from 1 to N exactly once.
