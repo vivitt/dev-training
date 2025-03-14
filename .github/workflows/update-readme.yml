@@ -2,6 +2,7 @@
 
 name: Update README with new links
 on:
+  workflow_dispatch:
   push:
     paths:
       - '**.md'
