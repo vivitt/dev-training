@@ -16,7 +16,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Get changed files
-        run: changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | xargs)" >> $GITHUB_OUTPUT
+        run: echo "changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | xargs)" >> $GITHUB_OUTPUT
         
       - name: List changed files & create links
         run: |
