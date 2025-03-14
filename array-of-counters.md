@@ -1,3 +1,5 @@
+# Array of Counters
+
 In this exercise, you start with N counters, all set to 0.
 You can perform two operations on these counters:
   - add 1 to a specific counter
