@@ -16,8 +16,10 @@ jobs:
         with:
           fetch-depth: 0
       - name: Get changed files
-        run: echo "changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | xargs)" >> $GITHUB_OUTPUT
-        
+        run: |
+          echo "changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | xargs)" >> $GITHUB_OUTPUT
+          echo "${chaned_files}" >> md_links.md
+          
       - name: List changed files & create links
         run: |
           index=$((index + 1))
