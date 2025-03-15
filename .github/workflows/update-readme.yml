@@ -7,37 +7,39 @@ on:
       - '**.md'
 
 jobs:
-  update-readme:
+  get-new-files:
     runs-on: ubuntu-latest
-    
+    outputs:
+      md: ${{ steps.changes.outputs.md }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       - name: Get changed files
-        id: changed-files
+        id: new-files
         run: |
-          echo "changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | xargs)" >> $GITHUB_OUTPUT
-          
+          echo "::set-output name=md::$(git diff --name-only --diff-filter=A ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep .md$ --exclude=md_links.md --exclude=README.md | xargs)"
+  
+  add-new-links:  
+    runs-on: ubuntu-latest
+    needs: get-new-files
+    if: ${{needs.changedfiles.outputs.md}}
+    steps: 
       - name: List changed files & create links
         run: |
-          index=$((index + 1))
-          for file in ${{ steps.changed-files.outputs.changed_files }}; do
+          for file in ${{needs.changedfiles.outputs.md}}; do
+            file_path="${file#./}
             header=$(head -n 1 "$file")
               if [[ "$header" =~ ^#\ (.+) ]]; then
                 name="${BASH_REMATCH[1]}"
               else
                 name=$(basename "$file")
               fi
-            echo "${index}. [${name}](${file_path})" >> md_links.md
+            echo "[${name}](${file_path})" >> md_links.md
           done
           
       - name: Update README
         run: |
-          awk '/<!-- MD LINKS START -->/{print; system("cat md_links.md"); next} /<!-- MD LINKS END -->/{found=1} !found' README.md > temp.md
-          echo "<!-- MD LINKS END -->" >> temp.md
-          mv temp.md README.md
+          sed -i '/<!-- MD LINKS START -->/,/<!-- MD LINKS END -->/ {  /<!-- MD LINKS START -->/!{/<!-- MD LINKS END -->/!d} }' README.md && sed -i '/<!-- MD LINKS START -->/r md_links.md' README.md
 
       - name: Commit and push changes
         run: |
