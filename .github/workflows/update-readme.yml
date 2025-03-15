@@ -34,7 +34,7 @@ jobs:
               else
                 name=$(basename "$file")
               fi
-            echo "[${name}](${file_path})" >> md_links.md
+            echo "- [${name}](${file_path})" >> md_links.md
           done
           
       - name: Update README
