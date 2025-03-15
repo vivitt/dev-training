@@ -17,7 +17,7 @@ jobs:
       - name: Get changed files
         id: new-files
         run: |
-          echo "::set-output name=md::$(git diff --name-only --diff-filter=A ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep .md$ --exclude=md_links.md --exclude=README.md | xargs)"
+          echo "::set-output name=md::$(git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep .md$ --exclude=md_links.md --exclude=README.md | xargs)"
   
   add-new-links:  
     runs-on: ubuntu-latest
