@@ -4,14 +4,28 @@ The goal of this exercise is to find the maximal product of any triplet in a non
 
 ```
 function solution(A) {
-    const triplets = []
+    
+    let P = 0
+    let Q = 1
+    let R = 2
 
-    for(let i = 0; i < A.length - 2; i++) {
-        for(let j = i+1; j<A.length -1; j++) {
-            triplets.push([A[i] * A[j] *A[j+1]] )
+    let product = 0
+    while(P < A.length - 2) {
+        const current = A[P] * A[Q] * A[R]
+        if(current > product) {
+            product = current
+        }
+        if(R === A.length-1) {
+            P++
+            Q = P + 1
+            R = Q + 1
+        } else {
+            Q++
+            R++
         }
     }
+    return product
 
-    return Math.max(...triplets)
 }
+
 ```
