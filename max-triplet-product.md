@@ -9,9 +9,9 @@ function solution(A) {
     let Q = 1
     let R = 2
 
-    let product = 0
+    let product = (A[P] * A[Q]) * A[R]
     while(P < A.length - 2) {
-        const current = A[P] * A[Q] * A[R]
+        const current = (A[P] * A[Q]) * A[R]
         if(current > product) {
             product = current
         }
