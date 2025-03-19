@@ -13,30 +13,31 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
       - name: Find md files & create links
         id: find-files
         run: |
-          bash -c
-          "files=$(find . -type f -name "*.md" ! -name "md_links.md" ! -name "README.md")
+          files=$(find . -type f -name "*.md" ! -name "md_links.md" ! -name "README.md")
           echo "" > md_links.md
           for file in $files; do
             file_path="${file#./}"
             header=$(head -n 1 "$file")
-              if [[ "$header" =~ ^#\ (.+) ]]; then
-                name="${BASH_REMATCH[1]}"
-              else
-                name=$(basename "$file")
-              fi
+            if [[ "$header" =~ ^#\ (.+) ]]; then
+              name="${BASH_REMATCH[1]}"
+            else
+              name=$(basename "$file")
+            fi
             echo "- [${name}](${file_path})" >> md_links.md
-          done"
-          
+          done
+
       - name: Update README
         run: |
-          sed -i '/<!-- MD LINKS START -->/,/<!-- MD LINKS END -->/ {  /<!-- MD LINKS START -->/!{/<!-- MD LINKS END -->/!d} }' README.md && sed -i '/<!-- MD LINKS START -->/r md_links.md' README.md
-      
+          sed -i '/<!-- MD LINKS START -->/,/<!-- MD LINKS END -->/ {  /<!-- MD LINKS START -->/!{/<!-- MD LINKS END -->/!d} }' README.md
+          sed -i '/<!-- MD LINKS START -->/r md_links.md' README.md
+
       - name: Commit and push changes
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
-          git diff --quiet || (git add README.md && git add md_links.md && git commit -m "Update README with new files links" && git push)
+          git diff --quiet || (git add README.md md_links.md && git commit -m "Update README with new files links" && git push)
 
