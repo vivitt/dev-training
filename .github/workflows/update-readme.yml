@@ -18,14 +18,11 @@ jobs:
         run: |
           files=$(find . -type f -name "*.md" ! -name "md_links.md" ! -path "README.md")
           echo "md_files=$files" >> "$GITHUB_OUTPUT"
-      - name: Get md files
+      - name: Get md files & create links
         env:
           MD_FILES: ${{ steps.find-files.outputs.md_files }}
-      - name: Clear md_links.md
         run: |
           echo "" > md_links.md
-      - name: List changed files & create links
-        run: |
           for file in $MD_FILES; do
             file_path="${file#./}
             header=$(head -n 1 "$file")
