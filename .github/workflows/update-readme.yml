@@ -7,26 +7,32 @@ on:
       - '**.md'
 
 jobs:
-  changedfiles:
+  findmdfiles:
     runs-on: ubuntu-latest
     outputs:
-      md: ${{ steps.changes.outputs.md }}
+      md_files: ${{ steps.files.outputs.md_files }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Get changed files
-        id: changes
+      - name: Get all md files
+        id: files
         run: |
-          echo "::set-output name=md::$(git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep .md$ --exclude=md_links.md --exclude=README.md | xargs)"  
- 
-  add-new-links:  
+          files=$(find . -type f -name "*.md" ! -name "md_links.md" ! -path "README.md")
+          echo "Found files: $files"
+          echo "::set-output name=md_files::$files"
+  
+  add-links:  
     runs-on: ubuntu-latest
-    needs: changedfiles
-    if: ${{needs.changedfiles.outputs.md}}
+    needs: findmdfiles
+    if: ${{needs.files.outputs.md_files}}
     steps: 
+      - name: Clear md_links.md
+        run: |
+          echo "" > md_links.md
+          
       - name: List changed files & create links
         run: |
-          for file in ${{needs.changedfiles.outputs.md}}; do
+          for file in ${{needs.files.outputs.md_files }}; do
             file_path="${file#./}
             header=$(head -n 1 "$file")
               if [[ "$header" =~ ^#\ (.+) ]]; then
@@ -40,7 +46,7 @@ jobs:
       - name: Update README
         run: |
           sed -i '/<!-- MD LINKS START -->/,/<!-- MD LINKS END -->/ {  /<!-- MD LINKS START -->/!{/<!-- MD LINKS END -->/!d} }' README.md && sed -i '/<!-- MD LINKS START -->/r md_links.md' README.md
-
+      
       - name: Commit and push changes
         run: |
           git config --global user.name 'github-actions'
