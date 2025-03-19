@@ -1,3 +1,5 @@
+# Find the Smallest Missing Positive Integer
+
 The goal of this exercise is to find the smallest positive integer missing from an array.
 First, create a new array without duplicates and without negative numbers.
 Then, handle edge cases like an array with no positive integers or just one element.
