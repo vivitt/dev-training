@@ -18,7 +18,6 @@ jobs:
         id: files
         run: |
           files=$(find . -type f -name "*.md" ! -name "md_links.md" ! -path "README.md")
-          echo "Found files: $files"
           echo "::set-output name=md_files::$files"
   
   add-links:  
