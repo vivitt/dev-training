@@ -4,28 +4,11 @@ The goal of this exercise is to find the maximal product of any triplet in a non
 
 ```
 function solution(A) {
-    
-    let P = 0
-    let Q = 1
-    let R = 2
+    const sorted = A.sorted((a, b) => b - a)
+    const productOne = sorted[0] * sorted[1] * sorted[2]
+    const productTwo = sorted[A.length-1] * sorted[A.length-2] * sorted[0]
 
-    let product = (A[P] * A[Q]) * A[R]
-    while(P < A.length - 2) {
-        const current = (A[P] * A[Q]) * A[R]
-        if(current > product) {
-            product = current
-        }
-        if(R === A.length-1) {
-            P++
-            Q = P + 1
-            R = Q + 1
-        } else {
-            Q++
-            R++
-        }
-    }
-    return product
-
+    return Math.max(productOne, productTwo)
 }
 
 ```
