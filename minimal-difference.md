@@ -1,3 +1,5 @@
+# Find the Minimal Difference
+
 The goal of this exercise is to find the minimal possible difference between two parts of a split non-empty array.
 
 The solution function receives an array A of integers and should return an integer representing the minimal difference achieved.
