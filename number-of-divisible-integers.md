@@ -1,3 +1,4 @@
+# Find all divisible integers
 In this exercise, the solution function receives three arguments: A, B, and K.
 The goal is to find how many integers within the range [A..B] are divisible by K.
 
