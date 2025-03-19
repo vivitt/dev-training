@@ -16,10 +16,11 @@ jobs:
       - name: Find md files & create links
         id: find-files
         run: |
-          files=$(find . -type f -name "*.md" ! -name "md_links.md" ! -path "README.md")
+          bash -c
+          "files=$(find . -type f -name "*.md" ! -name "md_links.md" ! -name "README.md")
           echo "" > md_links.md
           for file in $files; do
-            file_path="${file#./}
+            file_path="${file#./}"
             header=$(head -n 1 "$file")
               if [[ "$header" =~ ^#\ (.+) ]]; then
                 name="${BASH_REMATCH[1]}"
@@ -27,7 +28,7 @@ jobs:
                 name=$(basename "$file")
               fi
             echo "- [${name}](${file_path})" >> md_links.md
-          done
+          done"
           
       - name: Update README
         run: |
