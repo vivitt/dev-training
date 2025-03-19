@@ -1,3 +1,4 @@
+# Minimal Nucleotide Impact Factor
 In this exercise, the goal is to create a function that answers multiple queries.
 
 Each query specifies a particular segment of a given DNA sequence, and the function should return the minimal impact factor of the nucleotides within that segment.
