@@ -13,18 +13,20 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Get md files
-        id: files
+      - name: Find md files
+        id: find-files
         run: |
           files=$(find . -type f -name "*.md" ! -name "md_links.md" ! -path "README.md")
-          echo "md_files=$files" >> "$GITHUB_ENV"
+          echo "md_files=$files" >> "$GITHUB_OUTPUT"
+      - name: Get md files
+        env:
+          MD_FILES: ${{ steps.find-files.outputs.md_files }}
       - name: Clear md_links.md
         run: |
           echo "" > md_links.md
-          
       - name: List changed files & create links
         run: |
-          for file in $md_files; do
+          for file in $MD_FILES; do
             file_path="${file#./}
             header=$(head -n 1 "$file")
               if [[ "$header" =~ ^#\ (.+) ]]; then
