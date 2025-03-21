@@ -17,8 +17,9 @@ jobs:
       - name: Find md files & create links
         id: find-files
         run: |
-          files=$(find . -type f -name "*.md" ! -name "md_links.md" ! -name "README.md")
+          files=$(find . -type f -name "*.md" ! -name "md_links.md" ! -name "README.md" -printf "%T@ %p\n" | sort -n | awk '{print $2}')
           echo "" > md_links.md
+          index=0
           for file in $files; do
             file_path="${file#./}"
             header=$(head -n 1 "$file")
@@ -27,7 +28,7 @@ jobs:
             else
               name=$(basename "$file")
             fi
-            echo "- [${name}](${file_path})" >> md_links.md
+            echo "${index+1}. [${name}](${file_path})" >> md_links.md
           done
 
       - name: Update README
