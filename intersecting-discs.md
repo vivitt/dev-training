@@ -9,4 +9,16 @@ If there are more than 10,000,000 pairs of intersecting discs, the function shou
 Otherwise, it should return the number of pairs of intersecting discs.
 
 ```
+function solution(A) {
+  let pairs = 0
+  for (let i = 1; i < A.length; i++) {
+    for (let j = 0; j < i; j++) {
+      if(i - A[i] <= j + A[j]) {
+        pairs++  
+      }
+      if (pairs > 10000000) return -1
+    }
+  }
+  return pairs
+}
 ```
