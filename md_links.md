@@ -1,5 +1,6 @@
 
 1. [Array of Counters](array-of-counters.md)
+1. [Counting Sort](counting-sort.md)
 1. [Check if Array is a Permutation](find-array-permutations.md)
 1. [find-first-complete-set.md](find-first-complete-set.md)
 1. [Find Minimal Average of Possible Array Slices](find-minimal-average.md)
