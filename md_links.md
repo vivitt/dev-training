@@ -7,6 +7,7 @@
 1. [Find the missing array element](find-missing-array-element.md)
 1. [Find the Smallest Missing Positive Integer](find-smallest-integer.md)
 1. [Find the number of intersecting discs](intersecting-discs.md)
+1. [Living Fish Exercise](living-fishes.md)
 1. [Find the Maximum Triplet Product](max-triplet-product.md)
 1. [Find the Minimal Difference](minimal-difference.md)
 1. [Nested Strings](nested-strings.md)
