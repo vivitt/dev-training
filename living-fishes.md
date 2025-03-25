@@ -17,29 +17,31 @@ If the fish in the stack is going in the 1 direction:
 
 The direction of the survivor will be the last direction stored, but first, it’s necessary to check the current stack to see if there are more collisions.
 
-
-
 ```
 function solution(A, B) {
-  const stack = [A[0]]
-  let lastDir = B[0]
-
+    const stack = [A[0]]
+    const dirs = [B[0]]
     for(let i = 1; i < A.length; i++) {
-        if(lastDir === 0) {
+        if(dirs[dirs.length-1] === 0) {
             stack.push(A[i])
-            lastDir = B[i]
-        } else { 
+            dirs.push(B[i])
+        } else {
             if(B[i] === 1) {
-                stack.push(A[i])
-            } else { 
-                const last = stack.pop()
-                const dir = 1
-                
+            stack.push(A[i])
+            dirs.push(1)
+                } else {
+                    while(dirs[dirs.length -1 === 1]) {
+                        const last = stack.pop()
+                        stack.push(Math.max(last, A[i]))
+                        if(last < A[i]) {
+                            dirs.pop()
+                            dirs.push(B[i])
+                        } 
+                    }
+                }   
             }
         }
-    }
-
+    
     return stack.length
 }
-
 ```
