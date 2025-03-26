@@ -11,6 +11,7 @@
 1. [Find the Maximum Triplet Product](max-triplet-product.md)
 1. [Find the Minimal Difference](minimal-difference.md)
 1. [Nested Strings](nested-strings.md)
+1. [Nesting Strings](nesting-strings.md)
 1. [Minimal Nucleotide Impact Factor](nucleotides-minimal-impact-factors.md)
 1. [Find the number of distinct values](number-of-distinct-values.md)
 1. [Find all divisible integers](number-of-divisible-integers.md)
