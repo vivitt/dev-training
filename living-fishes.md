@@ -13,5 +13,29 @@ Then, if the last fish is bigger than the previous one, add 1 to the counter and
 Finally, return the counter plus the fish in the stack.
 
 ```
+function solution(A, B) {
+    let live = 0
+    const goingRight = []
 
+    for(let i = 0; i < A.length; i++) {
+        if(B[i] === 1) {
+            goingRight.push(i)
+        } else {
+            let last = goingRight.length
+            if(last === 0) {live++}
+            else {
+                while(last > 0) {
+                if(A[i] > A[last-1]) {
+                    goingRight.pop()
+                    live++
+                    last--
+                } else {
+                    last = -1
+                }
+              }
+            }
+        }
+    }
+    return (goingRight.length + live)
+}
 ```
