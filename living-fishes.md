@@ -14,28 +14,27 @@ Finally, return the counter plus the fish in the stack.
 
 ```
 function solution(A, B) {
-    let live = 0
-    const goingRight = []
-
+    const stack = []
+    let alive = 0
     for(let i = 0; i < A.length; i++) {
-        if(B[i] === 1) {
-            goingRight.push(i)
+        if(B[i] === 1){
+            stack.push(A[i])
         } else {
-            let last = goingRight.length
-            if(last === 0) {live++}
-            else {
-                while(last > 0) {
-                if(A[i] > A[last-1]) {
-                    goingRight.pop()
-                    live++
-                    last--
+            let last = stack.pop()
+            if(last === undefined) {
+                alive++
+            } else {
+                if (last > A[i]) {
+                    stack.push(last)
                 } else {
-                    last = -1
+                    while(last !== undefined) {
+                        alive++
+                        last = stack.pop()
+                    }
                 }
-              }
             }
         }
     }
-    return (goingRight.length + live)
+    return alive + stack.length
 }
 ```
