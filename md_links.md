@@ -15,4 +15,5 @@
 1. [Minimal Nucleotide Impact Factor](nucleotides-minimal-impact-factors.md)
 1. [Find the number of distinct values](number-of-distinct-values.md)
 1. [Find all divisible integers](number-of-divisible-integers.md)
+1. [Build a Stone Wall](stone-wall.md)
 1. [Triangle](triangle.md)
