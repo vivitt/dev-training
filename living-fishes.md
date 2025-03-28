@@ -4,37 +4,47 @@ In this exercise, the goal is to write a function that calculates the living fis
 The function receives two arrays of the same size: Array A stores the size of the fish, and Array B, their directions.
 When two fish meet, only the biggest stays alive. So, the goal is to get the number of fish that will survive.
 
-First, create an array to store the fish going to the right, with a direction equal to 1.
-Initialize a variable to count living fish.
+First, check if the array of directions includes both 0 and 1. Otherwise, you can return the array's length.
+Then, create two arrays to use as a stack for living fish. One will store directions and the other the values of each fish.
+Iterate through the array of fish. If the direction of the fish is 1, push its value and direction to the current alive fish arrays.
+Otherwise, iterate through the currently living fish and check whether the last element of the stack can meet the current fish.
+When the fish meet a fish in the stack with the same direction, it can be pushed to the alive arrays. Otherwise, keep iterating and only keep the biggest fish in the array.
 
-Iterate through the array of directions. If the direction is 0 and the stack is empty, add 1 to the counter. Otherwise, if the direction is 1, add it to the stack. If it is 0 but the stack already has elements in it, the fish meet.
-Then, if the last fish is bigger than the previous one, add 1 to the counter and continue comparing fish until the stack is empty. If the previous one is bigger, keep the stack and continue the loop.
-
-Finally, return the counter plus the fish in the stack.
+At the end, return the length of the array of living fish.
 
 ```
 function solution(A, B) {
-    const stack = []
-    let alive = 0
-    for(let i = 0; i < A.length; i++) {
-        if(B[i] === 1){
-            stack.push(A[i])
+    const firstOne = B.indexOf(1)
+    const lastZero = B.lastIndexOf(0)
+
+    if( firstOne === -1 || lastZero  === -1)return A.length
+
+    const stackValues = [A[0]]
+    const stackDirs = [B[0]]
+
+    for(let i = 1; i < A.length; i++) {
+        const l = stackValues.length
+        if(B[i] === 1) {
+            stackDirs.push(1)
+            stackValues.push(A[i]) 
         } else {
-            let last = stack.pop()
-            if(last === undefined) {
-                alive++
-            } else {
-                if (last > A[i]) {
-                    stack.push(last)
+            for(let j = l-1; j >= 0; j--) {
+                if(stackDirs[j] === 0) {
+                    stackDirs.push(0)
+                    stackValues.push(A[i]) 
+                    j = -1
                 } else {
-                    while(last !== undefined) {
-                        alive++
-                        last = stack.pop()
+                    const val = stackValues[j]
+                    if(A[i] > val ) {
+                        const val = stackValues.pop()
+                        const dir = stackDirs.pop()
+                    } else { 
+                        j = -1
                     }
                 }
-            }
+            }   
         }
     }
-    return alive + stack.length
+    return stackValues.length 
 }
 ```
