@@ -24,21 +24,27 @@ function solution(A, B) {
 
     for(let i = 1; i < A.length; i++) {
         const l = stackValues.length
-        if(B[i] === 1) {
-            stackDirs.push(1)
+
+        if(B[i] === 1 || l === 0 || stackDirs[l-1] === 0) {
+            stackDirs.push(B[i])
             stackValues.push(A[i]) 
         } else {
             for(let j = l-1; j >= 0; j--) {
-                if(stackDirs[j] === 0) {
-                    stackDirs.push(0)
-                    stackValues.push(A[i]) 
+                const val = stackValues[j]
+                const dir = stackDirs[j]
+                if(A[i] < val) {
                     j = -1
-                } else {
-                    const val = stackValues[j]
-                    if(A[i] > val ) {
-                        const val = stackValues.pop()
-                        const dir = stackDirs.pop()
-                    } else { 
+                } else if(dir === 0) {
+                    stackDirs.push(0)
+                    stackValues.push(A[i])
+                    j = -1
+                }
+                else {
+                    const lastV = stackValues.pop()
+                    const lastD = stackDirs.pop()
+                    if(j === 0) {
+                        stackDirs.push(0)
+                        stackValues.push(A[i])
                         j = -1
                     }
                 }
