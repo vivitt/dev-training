@@ -14,43 +14,40 @@ At the end, return the length of the array of living fish.
 
 ```
 function solution(A, B) {
-    const firstOne = B.indexOf(1)
-    const lastZero = B.lastIndexOf(0)
-
-    if( firstOne === -1 || lastZero  === -1)return A.length
-
-    const stackValues = [A[0]]
-    const stackDirs = [B[0]]
+    const dirs = [B[0]]
+    const values = [A[0]]
 
     for(let i = 1; i < A.length; i++) {
-        const l = stackValues.length
-
-        if(B[i] === 1 || l === 0 || stackDirs[l-1] === 0) {
-            stackDirs.push(B[i])
-            stackValues.push(A[i]) 
+        if(B[i] === 1) {
+            dirs.push(B[i])
+            values.push(A[i])
         } else {
-            for(let j = l-1; j >= 0; j--) {
-                const val = stackValues[j]
-                const dir = stackDirs[j]
-                if(A[i] < val) {
-                    j = -1
-                } else if(dir === 0) {
-                    stackDirs.push(0)
-                    stackValues.push(A[i])
-                    j = -1
-                }
-                else {
-                    const lastV = stackValues.pop()
-                    const lastD = stackDirs.pop()
-                    if(j === 0) {
-                        stackDirs.push(0)
-                        stackValues.push(A[i])
+            const l = dirs.length
+            const last = dirs[l-1]
+            if(last === 0) {
+                dirs.push(B[i])
+                values.push(A[i]) 
+            } else {
+                
+                for(let j = l-1; j >= 0; j--) {
+                    if(dirs[j] === 0) {
+                        dirs.push(B[i])
+                        values.push(A[i]) 
                         j = -1
+                    } else if(values[j] > A[i]) {
+                        j = -1
+                    } else {
+                        dirs.pop()
+                        values.pop()
+                        if( j === 0) {
+                            dirs.push(B[i])
+                            values.push(A[i]) 
+                        }
                     }
                 }
-            }   
+            }
         }
     }
-    return stackValues.length 
+    return values.length
 }
 ```
