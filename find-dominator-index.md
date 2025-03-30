@@ -5,13 +5,35 @@ An element is considered a dominator if it occurs in more than half of the eleme
 ```
 function solution(A) {
     const l = A.length
-    let candidate = A[Math.ceil(l/2)]
-    let count = 0
-    for(let i = 0; i < A.length; i++) {
-        if(A[i] === candidate) {
-            count++
+    let current = A[0]
+    let count = 1
+
+    for(let i = 1; i < l; i++) {
+        if(count === 0) {
+            current = A[i]
+            count = 1
+        } else {
+            if(A[i] === current) {
+                count+= 1
+            } else {
+                count-= 1
+            }
         }
     }
-    return count > l/2 ?Math.ceil(l/2) :-1
+    
+    if(count === 0) return -1
+   
+    let occurrences = 0
+    let index = -1
+    for(let i = 0; i < l; i++) {
+        if(A[i] === current) {
+            occurrences++
+        }
+    }
+    if(occurrences > l/2) {
+        index = A.indexOf(current)
+    }
+    
+    return index
 }
 ```
