@@ -1,6 +1,7 @@
 
 1. [Array of Counters](array-of-counters.md)
 1. [Counting Sort](counting-sort.md)
+1. [Count the number of equi leaders](equi-leaders.md)
 1. [Check if Array is a Permutation](find-array-permutations.md)
 1. [Find Dominator Index](find-dominator-index.md)
 1. [find-first-complete-set.md](find-first-complete-set.md)
