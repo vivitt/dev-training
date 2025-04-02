@@ -5,67 +5,49 @@ A leader is an element that occurs at least more than half the array length.
 
 ```
 function solution(A) {
-    // Implement your solution here
-    let equiLeaders = 0
-    let count = 1
-    let current = A[0]
-    for(let i = 1; i < A.length; i++) {
+    let pairs = 0
+    let last = 0
+    let count = 0
+
+    for(let i = 0; i < A.length; i++) {
         if(count === 0) {
-            current = A[i]
-            count = 1
-        }  else {
-            if( A[i] === current){
-                count++
-            } else {
-                count--
-            }
-        }
-    }
-            
-    if(count === 0) {
-        return equiLeaders
-    } else {
-        let occurrences = 0
-        for(let i = 0; i < A.length; i++) {
-            if(A[i] === current) {
-                occurrences++
-            }
-        }
-        if(occurrences <= A.length/2) {
-            return equiLeaders
+            last = A[i]
+            count++
         } else {
-            let candidate = current
-
-            for(let i = 0; i < A.length; i++) {
-                if(i % 2 === 0) {
-                    const left = A.slice(0, i+1)
-                    const rigth = A.slice(i+1)
-
-                    let counter = 0
-                    for(let j = 0; j < left.length; j++) {
-                        if(left[j] === candidate) {
-                            counter++
-                        }
-                    }
-                    if(counter > left.length/2) {
-                    counter = 0
-                    for(let j = 0; j < rigth.length; j++) {
-                        if(rigth[j] === candidate) {
-                                counter++
-                        }
-                    }
-                    
-                    if(counter > rigth.length/2) {
-                        equiLeaders++
-                    }
-                }
-                }
-            
+            if(A[i] !== last) {
+                count--
+            } else {
+                count++
             }
-        
         }
-
     }
-    return equiLeaders
+
+    if(count === 0) {return pairs}
+    
+    const candidate = last
+    let occurrences = 0
+
+    const prefix = Array.from({length: A.length+1}).fill(0)
+    for(let i = 0; i < A.length; i++) {
+        if(A[i] === candidate) {
+            occurrences++ 
+        }
+        prefix[i+1] = occurrences
+    }
+
+    if(occurrences <= A.length/2) {return pairs}
+
+    for(let i = 0; i < A.length; i++) {
+        
+            const left = prefix[i + 1] - prefix[0]
+            const rigth = prefix[prefix.length-1] - prefix[i+1]
+            const left_l = i+1
+            const rigth_l = A.length - left_l
+            if(left > left_l/2 && rigth > rigth_l/2) {
+                pairs++
+            }
+          
+    }
+    return pairs
 }
 ```
