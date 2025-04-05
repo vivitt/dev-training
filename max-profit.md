@@ -6,22 +6,26 @@ If there's no possible profit, return 0.
 
 ```
 function solution(A) {
+    const l = A.length
     let profit = 0
 
-    const l = A.length
+    let last_sell = A[l-1]
+    let last_buy = A[0]
 
-    let min_value = A[0]
-    let max_slice = A[1]
-
-    for(let i = 1; i < l-1; i++){
-        min_value = Math.min(min_value, A[i])
-
-        max_slice = Math.max(A[l-1], A[i+1])
-
-        const diff = max_slice - min_value
-
-        if(diff > profit) {profit = diff}
+    if(last_sell - last_buy > profit) {
+        profit = last_sell - last_buy
     }
+   
+
+    for(let i = 1; i < l ; i++) {
+        
+        last_buy = Math.min(last_buy, A[i])
+        last_sell = A[i+1]
+
+        const diff = last_sell - last_buy
+        if (diff > profit) {profit = diff}
+    }
+
     return profit
 }
 ```
