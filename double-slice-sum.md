@@ -1,8 +1,12 @@
 # Find the max double slice sum
 
-Within a non empty array A containing N elements, a double slice is a triplet of elements such that 0 <= P < Q < R < N.
-The sum of those elements equals to A[P+1] + A[P+2] + ... + A[Q-1] + A[Q+1] + A[Q+2] + ... + A[R-1]
-The goal in this exercise is to find the maximal double slice sum for a given array.
+Given a non-empty array A containing N elements, a double slice is defined by a triplet of indices (P, Q, R) such that 0 ≤ P < Q < R < N.
+
+The sum of a double slice is calculated as:
+A[P+1] + A[P+2] + ... + A[Q−1] + A[Q+1] + A[Q+2] + ... + A[R−1]
+(Note that A[Q] is excluded.)
+
+The goal of this exercise is to find the maximum sum of any double slice in the array.
 
 ```
 function solution(A) {
