@@ -12,28 +12,22 @@ The goal of this exercise is to find the maximum sum of any double slice in the 
 function solution(A) {
     const l = A.length
     if(l <= 3) return 0
+    let max_end = Array.from(A).fill(0)
+    let max_start = Array.from(A).fill(0)
 
-    const prefix = Array.from(A).fill(0)
-    
-    let max_end = 0
-    let max_slice = 0
-
-    let minEl = A[1]
-    let hasNegativeElements = false
-    for(let i = 1; i < l-1; i++) {
-        prefix[i] =  prefix[i-1] + A[i] 
-        max_end += A[i]
-        if(prefix[i] < prefix[i-1]) {
-            hasNegativeElements = true
-            max_end -= A[i]
-        } else {
-            minEl = A[i] < minEl ?A[i] :minEl
-        }
-
-        max_slice = Math.max(max_end, max_slice)
-        
+    for (let i = 1; i < l-1; i++){
+        max_end[i] = Math.max(0, max_end[i - 1] + A[i])
     }
+    
+    for (let i = l-2; i > -1; i--) {
+        max_start[i] = Math.max(0, max_start[i + 1] + A[i])
+    }
+        
+    max_double_slice = 0
 
-    return hasNegativeElements ?max_slice :max_slice-minEl
+    for (let i= 1; i < l -1; i++) { 
+        max_double_slice = Math.max(max_double_slice, max_end[i - 1] + max_start[i + 1])}
+
+    return max_double_slice
 }
 ```
