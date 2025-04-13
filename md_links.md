@@ -16,6 +16,7 @@
 1. [Find the Maximum Slice Value](max-slice.md)
 1. [Find the Maximum Triplet Product](max-triplet-product.md)
 1. [Find the Minimal Difference](minimal-difference.md)
+1. [Find the minimal perimeter](minimal-perimeter.md)
 1. [Nested Strings](nested-strings.md)
 1. [Nesting Strings](nesting-strings.md)
 1. [Minimal Nucleotide Impact Factor](nucleotides-minimal-impact-factors.md)
