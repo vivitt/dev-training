@@ -7,8 +7,7 @@ The goal is to determine the maximum number of flags that can be set on the peak
 
 ```
 function solution(A) {
-    // Implement your solution here
-
+   
     const l = A.length
     const peaks = []
 
@@ -18,10 +17,13 @@ function solution(A) {
         }
     }
     
-    const p = peaks.length
-
+    let p = peaks.length
     if(p <= 1) return p
-    // ...
-   
+    let flags = p
+    while(flags*flags > peaks[p-1]) {
+        flags--
+    }
+
+    return flags
 }
 ```
