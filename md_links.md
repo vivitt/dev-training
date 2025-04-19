@@ -23,5 +23,6 @@
 1. [Find the number of distinct values](number-of-distinct-values.md)
 1. [Find all divisible integers](number-of-divisible-integers.md)
 1. [The max number of flags](peak-flags.md)
+1. [Array Peaks](peaks.md)
 1. [Build a Stone Wall](stone-wall.md)
 1. [Triangle](triangle.md)
