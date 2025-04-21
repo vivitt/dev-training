@@ -4,7 +4,19 @@ Given a non-empty array, the goal of this task is to find the maximum number of 
 
 ```
 function solution(A) {
-    const l = A.length
+       const l = A.length
+    if(l <= 1) return 0
+
+    let i = 2
+    let factors = []
+
+    while(i*i < l) {
+        if(l % i === 0) {
+            factors.push(i)   
+        }
+        i++
+    }
+    if(factors.length === 0) return 0
     const peaks = []
 
     for(let i = 1; i < l-1; i++) {
@@ -12,9 +24,27 @@ function solution(A) {
             peaks.push(i)
         }
     }
-    let p = peaks.length
-    if(p <= 1) return p
 
-    return Math.floor(peaks[p-1] / p)
+    const totalPeaks = peaks.length
+    if(totalPeaks <= 1) return 0
+
+    let currentFactor = factors.length-1
+    let currentEl = 0
+
+    let j = 0
+
+    while(currentEl < l) {
+         const els = l / factors[currentFactor]
+        if(peaks[j] < currentEl+els) {
+            currentEl+= els
+            j++
+        } else {
+            if(currentFactor === 0) return 0
+            currentFactor--
+            currentEl = 0
+            j = 0  
+        }
+    }
+    return factors[currentFactor]
 }
 ```
