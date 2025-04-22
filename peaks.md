@@ -27,20 +27,17 @@ function solution(A) {
     }
     if(!factors[0])return 1
 
-    let factorIndex = factors.length-1
-    let j = 0
-    let elements = l / factors[factorIndex]
-   
-    while(j < numberOfPeaks) {
-        if(factorIndex < 0)return 0
-        if(peaks[j] < elements * (j+1)) {
-            j++
-        } else {
-            factorIndex--
-            elements = l / factors[factorIndex]
-        }
+    let f = factors.length-1
+    
+    let blockSize = l/factors[f]
+    let blocks = []
+    
+    for(let i = 0; i < numberOfPeaks; i++) {
+        blocks.push(Math.floor(peaks[i]/blockSize))
     }
-
-    return factors[factorIndex]
+    
+    const validBlocks = new Set(blocks)
+   
+    return validBlocks.size
 }
 ```
