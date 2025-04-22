@@ -5,39 +5,38 @@ Given a non-empty array, the goal of this task is to find the maximum number of 
 ```
 function solution(A) {
     const l = A.length
-    if(l <= 1) return 0
     const peaks = []
-    for(let i = 1; i < l-1 ; i++) {
+    for(let i = 1; i < l-1; i++) {
         if(A[i-1] < A[i] && A[i] > A[i+1]) {
             peaks.push(i)
         }
     }
-    
-    const numberOfPeaks = peaks.length
-    if(numberOfPeaks <= 1) return numberOfPeaks
+    const p = peaks.length
+    if (p <= 1) return p
 
     const factors = []
 
     let i = 2
-    while(i <= numberOfPeaks) {
+    while(i <= p) {
         if(l % i === 0) {
             factors.push(i)   
         }
         i++
     }
-    if(!factors[0])return 1
 
-    let f = factors.length-1
-    
-    let blockSize = l/factors[f]
-    let blocks = []
-    
-    for(let i = 0; i < numberOfPeaks; i++) {
-        blocks.push(Math.floor(peaks[i]/blockSize))
+    for(let i = factors.length-1; i >= 0; i--) {
+        const elements = l/factors[i]
+        
+        if(peaks[0] < elements) {
+            let count = 1
+            for(let j = 1; j < p; j++) {
+                if(peaks[j] >= elements * count) {
+                    count++
+                }
+                if(count === factors[i]) return factors[i]
+            }
+        }   
     }
-    
-    const validBlocks = new Set(blocks)
-   
-    return validBlocks.size
+    return 1
 }
 ```
