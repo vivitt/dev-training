@@ -4,47 +4,43 @@ Given a non-empty array, the goal of this task is to find the maximum number of 
 
 ```
 function solution(A) {
-       const l = A.length
+    const l = A.length
     if(l <= 1) return 0
+    const peaks = []
+    for(let i = 1; i < l-1 ; i++) {
+        if(A[i-1] < A[i] && A[i] > A[i+1]) {
+            peaks.push(i)
+        }
+    }
+    
+    const numberOfPeaks = peaks.length
+    if(numberOfPeaks <= 1) return numberOfPeaks
+
+    const factors = []
 
     let i = 2
-    let factors = []
-
-    while(i*i < l) {
+    while(i <= numberOfPeaks) {
         if(l % i === 0) {
             factors.push(i)   
         }
         i++
     }
-    if(factors.length === 0) return 0
-    const peaks = []
+    if(!factors[0])return 1
 
-    for(let i = 1; i < l-1; i++) {
-        if(A[i-1] < A[i] && A[i] > A[i+1]) {
-            peaks.push(i)
-        }
-    }
-
-    const totalPeaks = peaks.length
-    if(totalPeaks <= 1) return 0
-
-    let currentFactor = factors.length-1
-    let currentEl = 0
-
+    let factorIndex = factors.length-1
     let j = 0
-
-    while(currentEl < l) {
-         const els = l / factors[currentFactor]
-        if(peaks[j] < currentEl+els) {
-            currentEl+= els
+    let elements = l / factors[factorIndex]
+   
+    while(j < numberOfPeaks) {
+        if(factorIndex < 0)return 0
+        if(peaks[j] < elements * (j+1)) {
             j++
         } else {
-            if(currentFactor === 0) return 0
-            currentFactor--
-            currentEl = 0
-            j = 0  
+            factorIndex--
+            elements = l / factors[factorIndex]
         }
     }
-    return factors[currentFactor]
+
+    return factors[factorIndex]
 }
 ```
