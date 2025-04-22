@@ -19,12 +19,12 @@ function solution(A) {
     if(p <= 1) return p
 
     const lastPeak = peaks[p-1]
-    let flags = Math.floor(Math.sqrt(lastPeak)) + 1
 
-    let lastFlag = peaks[0]
-    let placed = 1
-    for(let i = flags; i > 1; i--) {
-        flags = i
+    
+    for(let i = Math.floor(Math.sqrt(lastPeak)) + 1; i > 1; i--) {
+        const flags = i
+        let placed = 1
+        let lastFlag = peaks[0]
         for(let j = 1; j < p; j++) {
             if(peaks[j]-lastFlag >= flags) {
                 placed++
