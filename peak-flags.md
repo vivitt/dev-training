@@ -8,24 +8,32 @@ The goal is to determine the maximum number of flags that can be set on the peak
 ```
 function solution(A) {
     const l = A.length
-    const peaks = []
 
+    const peaks = []
     for(let i = 1; i < l-1; i++) {
         if(A[i-1] < A[i] && A[i] > A[i+1]) {
             peaks.push(i)
         }
     }
-    let p = peaks.length
+    const p = peaks.length
     if(p <= 1) return p
-    let flags = Math.floor(Math.sqrt(peaks[p-1]))
-    let count = 1
-    let first = peaks[0]
-    for(let i = 1; i < p; i++) {
-        if(peaks[i] - first >= flags) {
-            count++
-            first = peaks[i]
+
+    const lastPeak = peaks[p-1]
+    let flags = Math.floor(Math.sqrt(lastPeak)) + 1
+
+    let lastFlag = peaks[0]
+    let placed = 1
+    for(let i = flags; i > 1; i--) {
+        flags = i
+        for(let j = 1; j < p; j++) {
+            if(peaks[j]-lastFlag >= flags) {
+                placed++
+                lastFlag = peaks[j]
+            } 
+            if(placed === flags) return flags
         }
     }
-    return count
+
+    return 1
 }
 ```
