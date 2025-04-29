@@ -1,6 +1,7 @@
 
 1. [Array of Counters](array-of-counters.md)
 1. [Count Factors](count-factors.md)
+1. [Count Semiprimes Values](count-semiprimes.md)
 1. [Counting Sort](counting-sort.md)
 1. [Find the max double slice sum](double-slice-sum.md)
 1. [Count the number of equi leaders](equi-leaders.md)
