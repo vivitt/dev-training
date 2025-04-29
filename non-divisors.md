@@ -8,37 +8,27 @@ function solution(A) {
 
     const sorted = [...new Set(A)].sort((a, b) => a - b)
 
-    const s = sorted.length
-
-    const max = sorted[s-1]
-    const countOccurrences = Array.from({length: max+1}).fill(0)
+    const max = sorted[sorted.length -1]
+    const count = Array.from({length:  max+1}).fill(0)
 
     for(let i = 0; i < l; i++) {
-        countOccurrences[A[i]]++
+        count[A[i]]++
     }
 
-    const countNonDivisors = Array.from({length: max+1}).fill(0)
-
-    let totalElements = l
-
-    for(let i = 0; i < s; i++) {
-
-        totalElements -= countOccurrences[sorted[i]]
-        
-        countNonDivisors[sorted[i]] += totalElements
-        for(let j = 0; j < i; j++) {
-            if(sorted[i] % sorted[j] !== 0) {
-                countNonDivisors[sorted[i]] += countOccurrences[sorted[j]]
+    const nonDivisors = Array.from(count).fill(0)
+    for(let i = 0; i < sorted.length; i++) {
+        for(let j = 2; j <= max; j++) {
+            if(count[j] !== 0 && sorted[i] % j !== 0) {
+                nonDivisors[sorted[i]] += count[j]
             }
         }
+        
     }
+    const result = Array.from(A).fill(0)
 
-    const result = []
-
-    for(let i = 0; i < l ; i ++) {
-        result[i] = countNonDivisors[A[i]]
+    for(let i = 0; i < l ; i++) {
+        result[i] = nonDivisors[A[i]]
     }
-
     return result
 }
 ```
