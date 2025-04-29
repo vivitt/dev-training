@@ -24,25 +24,21 @@ function solution(A) {
             factors.push(i)
         }
     }
+    const f = factors.length
 
-    if(factors.length < 1)return 1
+    if(f < 1)return 1
 
-    let factorIndex = 0
-    let blocks = factors[factorIndex]
-    let elements = 0
-    let currentPeak = 0
-    while(currentPeak < p && elements < l) {
-        if(peaks[currentPeak] >= elements && peaks[currentPeak] < (elements + l / blocks)) {
-            elements += l / blocks
-        } else if(peaks[currentPeak] > (elements + l / blocks)) {
-            factorIndex++
-            if(factorIndex === factors.length)return 1
-            blocks = factors[factorIndex]
-            elements = 0
-            currentPeak = 0
+
+    for(let i = 0; i < f; i++) {
+        const blocks = factors[i]
+        let elements = 0
+        for(let j = 0; j < p; j++) {
+            if(peaks[j] >= elements && peaks[j] < elements + l / blocks) {
+                elements += l / blocks
+            }
+            if(elements === l) return blocks
         }
-        currentPeak++
     }
-    return blocks
+    return 1
 }
 ```
