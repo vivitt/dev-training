@@ -5,6 +5,7 @@ Given a non-empty array, the goal of this task is to find the maximum number of 
 ```
 function solution(A) {
     const l = A.length
+
     const peaks = []
 
     for(let i = 1; i < l-1; i++) {
@@ -14,41 +15,34 @@ function solution(A) {
     }
 
     const p = peaks.length
-
     if(p <= 1) return p
 
-    let i = 2
     const factors = []
 
-    while(i <= p) {
-        if(l % i === 0) {
+    for(let i = p; i > 1; i--) {
+        if(l%i===0){
             factors.push(i)
         }
-        i++
     }
 
-    if(!factors[0])return 1
+    if(factors.length < 1)return 1
 
-    const f = factors.length
-    
-    let j = f-1
-    while(j > -1) {
-        const elements = l/factors[j]
-        if(peaks[0] >= elements) j--
-        let count = 1
-        for(let h = 1; h < p; h++) {
-            if(Math.floor(peaks[h] / elements) === count) {
-                count++
-            } 
-            else if(Math.floor(peaks[h] / elements) > count) {
-                j--
-            }
-            
-            if(count === factors[j]) return factors[j]
+    let factorIndex = 0
+    let blocks = factors[factorIndex]
+    let elements = 0
+    let currentPeak = 0
+    while(currentPeak < p && elements < l) {
+        if(peaks[currentPeak] >= elements && peaks[currentPeak] < (elements + l / blocks)) {
+            elements += l / blocks
+        } else if(peaks[currentPeak] > (elements + l / blocks)) {
+            factorIndex++
+            if(factorIndex === factors.length)return 1
+            blocks = factors[factorIndex]
+            elements = 0
+            currentPeak = 0
         }
-        
+        currentPeak++
     }
-    return 1
-
+    return blocks
 }
 ```
