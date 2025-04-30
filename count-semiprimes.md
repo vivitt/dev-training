@@ -7,44 +7,38 @@ The function must return an array where each element corresponds to the count of
 
 ```
 function solution(N, P, Q) {
-    const isPrime = Array(N + 1).fill(true);
-    isPrime[0] = isPrime[1] = false;
+    const isPrime = Array(N+1).fill(true)
 
-    for (let i = 2; i * i <= N; i++) {
-        if (isPrime[i]) {
-            for (let j = i * i; j <= N; j += i) {
-                isPrime[j] = false;
+    isPrime[0] = isPrime[1] = false
+
+    for(let i = 2; i <= N; i++) {
+        for(let j = i*i; j <= N; j+=i) {
+            isPrime[j] = false
+        }    
+    }
+
+    const isSemiprime = Array(N+1).fill(false)
+
+     for(let i = 2; i <= N; i++) {
+        for(let j = 2; j <= N; j++) {
+            if(isPrime[i] && isPrime[j] && j*i <= N) {
+                isSemiprime[j*i] = true
             }
-        }
-    }
-
-    const primes = []
-    for (let i = 2; i <= N; i++) {
-        if (isPrime[i]) primes.push(i);
-    }
-
-    const isSemiprime = Array(N + 1).fill(0);
-
-    for (let i = 0; i <= primes.length; i++) {
-        let j = 0
-        while(primes[i] * primes[j] <= N) {
-            isSemiprime[primes[i] * primes[j]] = primes[i] * primes[j]
-            j++
-        }
+        }    
     }
 
     const result = []
 
     for(let i = 0; i < P.length; i++) {
+        const start = P[i]
+        const end = Q[i]
         let count = 0
-        for(let j = P[i]; j <= Q[i]; j++) {
-            if(isSemiprime[j] !== 0) {
-                count++
-            }
-
+        for(let j = start; j <= end; j++) {
+            if(isSemiprime[j])count++
         }
         result.push(count)
     }
+    
     return result
 }
 ```
