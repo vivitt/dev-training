@@ -2,8 +2,19 @@
 
 A semiprime is a number that is the product of two (same or different) prime numbers.
 
-In this exercise, given two arrays P and Q with the same length, the goal is to find out how many semiprime numbers are there between P[i] and Q[i].
-The function must return an array where each element corresponds to the count of semiprimes within the query range.
+In this exercise, given two arrays P and Q of the same length, the goal is to find how many semiprime numbers exist between P[i] and Q[i] for each query.
+The function must return an array where each element corresponds to the count of semiprimes within the respective query range.
+
+The solution uses the *Sieve of Eratosthenes* to first identify all prime numbers up to a given number N.
+This technique involves creating an array of size `N + 1`, used to track prime numbers.
+Start with `i = 2` as it is the first prime number, and iterate through the array up to N, marking all multiples of `i` as non-prime.
+Then, increment `i` and repeat the process until `i` exceeds the square root of N.
+
+Once all prime numbers up to N are identified, compute all semiprime numbers by multiplying pairs of primes.
+
+Next, build a prefix sum array to count how many semiprimes appear up to each index.
+
+Finally, return a result array, where each element contains the number of semiprimes corresponding to each query range.
 
 ```
 function solution(N, P, Q) {
