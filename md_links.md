@@ -1,5 +1,6 @@
 
 1. [Array of Counters](array-of-counters.md)
+1. [Counting Eaten Chocolates](chocolates-by-numbers.md)
 1. [Count Factors](count-factors.md)
 1. [Count Semiprimes Values](count-semiprimes.md)
 1. [Counting Sort](counting-sort.md)
