@@ -13,6 +13,7 @@ Created this repo to store and track my progress in solving programming and algo
 1. [Counting Sort](counting-sort.md)
 1. [Find the max double slice sum](double-slice-sum.md)
 1. [Count the number of equi leaders](equi-leaders.md)
+1. [Fibonacci Frog](fibonacci-frog.md)
 1. [Check if Array is a Permutation](find-array-permutations.md)
 1. [Find Dominator Index](find-dominator-index.md)
 1. [find-first-complete-set.md](find-first-complete-set.md)
