@@ -9,19 +9,21 @@ The solution function receives two arrays, A and B, of the same length, and must
 function solution(A, B) {
     const l = A.length
     const gcd = (a, b) => a%b === 0 ?b :gcd(b, a%b)
-    const reduce = (val, common) => {
-        const g = gcd(val, common)
-        if(val === 1) return val
+    const reduceByCommonPrimes = (val, cd) => {
+        const g = gcd(val, cd)
         if(g === 1) return val
-        return reduce(val/g, common)
-    }
+        val = val/g
+        if(val === 1) return val
+        return reduceByCommonPrimes(val, g)
+    } 
+
     let count = 0
     for(let i = 0; i < l; i++) {
-        let [max, min] = [Math.max(A[i], B[i]), Math.min(A[i], B[i])]
-        while (max > 1 && gcd(max, min) > 1) {
-            max = reduce(max, gcd(max, min) )
-        }
-        if(max === 1)count++
+        const [a, b] = [A[i], B[i]]
+        const gr = gcd(a, b)
+        const aVal = reduceByCommonPrimes(a, gr)
+        const bVal = reduceByCommonPrimes(b, gr)
+        if(aVal === 1 && bVal === 1)count++
     }
     return count
 }
