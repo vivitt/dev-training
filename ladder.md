@@ -8,19 +8,19 @@ The solution function must return an array of the same length, where each number
 
 ```
 function solution(A, B) {
-    const l = A.length
-
-    const findFib = (n) => {
-        const fib = [0, 1]
-        for(let i = 2; i <= n +1; i++) {
-            fib[i] = fib[i - 1] + fib[i - 2]
+    const fib = [0, 1]
+    const results = []
+    for(let i = 0; i < A.length; i++) {
+        for(let j = 1; j <= A[i]; j++) {
+            const last = fib[0] + fib[1]
+            fib[0] = fib[1]
+            fib[1] = last
         }
-        return fib[n+1]
+        results.push(fib[1] % Math.pow(2, B[i]))
+        fib[0] = 0
+        fib[1] = 1
     }
-    const result = []
-    for(let i = 0; i < l; i++) {
-        result.push(findFib(A[i]) % Math.pow(2, B[i]))
-    }
-    return result
+
+    return results
 }
 ```
