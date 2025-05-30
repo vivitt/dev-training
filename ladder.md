@@ -8,19 +8,18 @@ The solution function must return an array of the same length, where each number
 
 ```
 function solution(A, B) {
+    const len = A.length
+
     const fib = [0, 1]
-    const results = []
-    for(let i = 0; i < A.length; i++) {
-        for(let j = 1; j <= A[i]; j++) {
-            const last = fib[0] + fib[1]
-            fib[0] = fib[1]
-            fib[1] = last
-        }
-        results.push(fib[1] % Math.pow(2, B[i]))
-        fib[0] = 0
-        fib[1] = 1
+
+    for(let i = 2; i <= len+2; i++) {
+        fib[i] = BigInt(fib[i-1]) + BigInt(fib[i-2])
     }
 
+    const results = [] 
+    for(let i = 0; i < len; i++) {
+        results.push(Number(fib[A[i]+1] % BigInt(Math.pow(2, B[i]))))
+    }
     return results
 }
 ```
