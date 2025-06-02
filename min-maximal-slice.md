@@ -36,5 +36,5 @@ function solution(K, M, A) {
 }
 ```
 
-This solution uses the Binary Search Algorithm, which lets us check whether the result should be smaller or larger than a given number.
+This solution uses the Binary Search Algorithm to check whether the result should be smaller or larger than a given number.
 With each iteration, the possible range gets halved, so the time complexity is O(N*log(N+M)).
