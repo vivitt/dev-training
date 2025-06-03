@@ -29,6 +29,7 @@ Created this repo to store and track my progress in solving programming and algo
 1. [Minimal Maximal Division](min-maximal-slice.md)
 1. [Find the Minimal Difference](minimal-difference.md)
 1. [Find the minimal perimeter](minimal-perimeter.md)
+1. [Nailing Planks](nailing-planks.md)
 1. [Nested Strings](nested-strings.md)
 1. [Nesting Strings](nesting-strings.md)
 1. [Count Non Divisors](non-divisors.md)
