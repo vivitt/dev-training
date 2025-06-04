@@ -8,32 +8,26 @@ If it is not possible to nail all the planks, the function must return -1.
 ```
 function solution(A, B, C) {
     let min = 1
-
     let max = C.length
-
     let nails = -1
-
-
     while(min <= max) {
+        const mid = Math.floor((min + max) / 2)
+        const nailed = new Set()
 
-        const nailed = new Array(A.length).fill(false);
-
-        const mid = Math.floor((min + max) / 2);
-
-        for (let i = 0; i < A.length; i++) {
-            for (let j = 0; j < mid; j++) {
-                if (A[i] <= C[j] && C[j] <= B[i]) {
-                    nailed[i] = true;
+        for(let i = 0; i < A.length; i++) {
+            for(let j = 0 ; j < mid; j++) {
+                if(A[i] <= C[j] && C[j] <= B[i]) {
+                    nailed.add(i)
                     break;
                 }
             }
         }
 
-        if(!nailed.includes(false)) {
-            nails = mid;
-            max = mid - 1;
+        if(nailed.size === A.length) {
+            nails = mid
+            max = mid - 1
         } else {
-            min = mid + 1;
+            min = mid + 1
         }
     }
     return nails
