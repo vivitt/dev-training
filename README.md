@@ -5,6 +5,7 @@ Created this repo to store and track my progress in solving programming and algo
 
 <!-- MD LINKS START -->
 
+1. [Count the Absolute Distinct Values](absolute-distinc-values.md)
 1. [Array of Counters](array-of-counters.md)
 1. [Counting Eaten Chocolates](chocolates-by-numbers.md)
 1. [Common Prime Divisors](common-prime-divisors.md)
