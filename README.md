@@ -12,6 +12,7 @@ Created this repo to store and track my progress in solving programming and algo
 1. [Count Factors](count-factors.md)
 1. [Count Semiprimes Values](count-semiprimes.md)
 1. [Counting Sort](counting-sort.md)
+1. [Count Distinct Slices](distinct-slices.md)
 1. [Find the max double slice sum](double-slice-sum.md)
 1. [Count the number of equi leaders](equi-leaders.md)
 1. [Fibonacci Frog](fibonacci-frog.md)
