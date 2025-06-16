@@ -36,3 +36,4 @@
 1. [Array Peaks](peaks.md)
 1. [Build a Stone Wall](stone-wall.md)
 1. [Triangle](triangle.md)
+1. [Count Triangular Triplets](triangular-triplets.md)
