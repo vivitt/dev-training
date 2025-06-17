@@ -7,6 +7,8 @@ A triplet P, Q, R is triangular if `0 ≤ P < Q < R < N` and:
 * A[Q] + A[R] > A[P]
 * A[R] + A[P] > A[Q]
 
+The first approach iterates over all possible triplet combinations:
+
 ```
 function solution(A) {
     const L = A.length
@@ -31,4 +33,29 @@ function solution(A) {
     return count
 }
 ```
-  
+
+But this solution can be optimized using the caterpillar method, which reduces the time complexity to O(N**2):
+
+```
+function solution(A) {
+    const L = A.length
+
+    const sorted = A.sort((a, b) => a - b)
+
+    let count = 0
+
+    for(let p = 0; p < L-2; p++) {
+        let r = p + 2
+        for(let q = p+1; q < L-1; q++) {
+            while (r < L && sorted[p] + sorted[q] > sorted[r]) {
+                r += 1
+                
+            }
+            count += r - q - 1
+            
+        }
+    }
+
+    return count
+}
+```
