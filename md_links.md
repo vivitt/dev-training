@@ -22,6 +22,7 @@
 1. [Find the max profit](max-profit.md)
 1. [Find the Maximum Slice Value](max-slice.md)
 1. [Find the Maximum Triplet Product](max-triplet-product.md)
+1. [Find the Minimal Absolute Sum of Two Array Values](min-abs-sum.md)
 1. [Minimal Maximal Division](min-maximal-slice.md)
 1. [Find the Minimal Difference](minimal-difference.md)
 1. [Find the minimal perimeter](minimal-perimeter.md)
