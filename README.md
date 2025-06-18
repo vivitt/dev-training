@@ -25,6 +25,7 @@ Created this repo to store and track my progress in solving programming and algo
 1. [Find the number of intersecting discs](intersecting-discs.md)
 1. [Ladder](ladder.md)
 1. [Living Fish Exercise](living-fishes.md)
+1. [Count the Non Overlapping Segments](max-non-overlapping-segments.md)
 1. [Find the max profit](max-profit.md)
 1. [Find the Maximum Slice Value](max-slice.md)
 1. [Find the Maximum Triplet Product](max-triplet-product.md)
