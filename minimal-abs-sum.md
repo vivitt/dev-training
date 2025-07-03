@@ -31,3 +31,36 @@ function solution(A) {
     return Math.min(...[...possibles])
 }
 ```
+
+```
+function solution(A) {
+    const maxSum = A.reduce((acc, el) => acc + el, 0)
+
+    const dpSize = Math.abs(maxSum) * 2 + 1
+
+    const offset = Math.abs(maxSum)
+
+    let dp = Array.from({length: dpSize}).fill(false)
+
+    dp[dpSize-1] = true
+
+    for(let num of A) {
+        const nextDp = [...dp]
+
+        for(let i = 0; i < dpSize; i++) {
+            if(dp[i]) {
+                if(maxSum < 0 && Math.abs(-i - num * 2) < dpSize) {
+                    nextDp[Math.abs(-i - num * 2)] = true
+                }
+                if(maxSum >= 0 && Math.abs(i - num * 2) < dpSize) {
+                    nextDp[Math.abs(i - num * 2)] = true
+                }
+            }
+        }
+        dp = nextDp
+    }
+    for(let i = 0; i < dpSize; i++) {
+        if(dp[i+offset]) return i 
+    }
+}
+```
